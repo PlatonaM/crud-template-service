@@ -49,9 +49,9 @@ class Collection:
                     data[key.decode()] = self.__kvs.get(key).decode()
             else:
                 data = [key.decode() for key in self.__kvs.keys()]
-            resp.status = falcon.HTTP_200
             resp.content_type = falcon.MEDIA_JSON
             resp.body = json.dumps(data)
+            resp.status = falcon.HTTP_200
         except Exception as ex:
             resp.status = falcon.HTTP_500
             reqErrorLog(req, ex)
@@ -86,9 +86,9 @@ class Resource:
         reqDebugLog(req)
         try:
             data = self.__kvs.get(resource)
-            resp.status = falcon.HTTP_200
             resp.content_type = crud_conf.Endpoint.content_type
             resp.body = data.decode()
+            resp.status = falcon.HTTP_200
         except snorkels.GetError as ex:
             resp.status = falcon.HTTP_404
             reqErrorLog(req, ex)
